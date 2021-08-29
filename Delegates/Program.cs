@@ -6,36 +6,36 @@ namespace Delegates
 {
     class Program
     {
-        public static void Sort(Array array, IComparer comparer)
+        public static void Sort(string[] array, IComparer<string> comparer)
         {
             for (int i = array.Length - 1; i > 0; i--)
                 for (int j = 1; j <= i; j++)
                 {
-                    object element1 = array.GetValue(j - 1);
-                    object element2 = array.GetValue(j);
+                    var element1 = array[j-1];
+                    var element2 = array[j];
                     if (comparer.Compare(element1, element2) > 0)
                     {
-                        object temp = array.GetValue(j);
-                        array.SetValue(array.GetValue(j - 1), j);
-                        array.SetValue(temp, j - 1);
+                        var temp = array[j];
+                        array[j] = array[j-1];
+                        array[j-1] = temp;
                     }    
                 }    
         }
 
-        class StringLengthComparer : IComparer
+        class StringLengthComparer : IComparer<string>
         {
-            public int Compare(object x, object y)
+            public int Compare(string x, string y)
             {
-                return (x as string).Length.CompareTo((y as string).Length);
+                return x.Length.CompareTo(y.Length);
             }
         }
 
-        class StringComparer : IComparer
+        class StringComparer : IComparer<string>
         {
             public bool Descending { get; set; }
-            public int Compare(object x, object y)
+            public int Compare(string x, string y)
             {
-                return (x as string).CompareTo(y as string) * (Descending ? -1: 1) ;
+                return x.CompareTo(y) * (Descending ? -1: 1) ;
             }
         }
 
