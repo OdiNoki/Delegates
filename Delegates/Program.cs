@@ -8,7 +8,7 @@ namespace Delegates
     {
         public delegate int StringComparer(string x, string y);
 
-        public static void Sort(string[] array, StringComparer comparer)
+        public static void SortString(string[] array, StringComparer comparer)
         {
             for (int i = array.Length - 1; i > 0; i--)
                 for (int j = 1; j <= i; j++)
@@ -24,7 +24,7 @@ namespace Delegates
                 }    
         }
 
-        public static int CompareLength(string x, string y)
+        public static int CompareStringLength(string x, string y)
         {
             return x.Length.CompareTo(y.Length);
         }
@@ -38,7 +38,7 @@ namespace Delegates
         //    }
         //}
 
-        public class AlphabeticComparer
+        public class Comparer
         {
             public bool Descending { get; set; }
 
@@ -51,11 +51,14 @@ namespace Delegates
         static void Main(string[] args)
         {
             var strings = new[] { "A", "B", "AA", "C", "BB", "FFF" };
-            Sort(strings, new StringComparer(CompareLength));
 
-            var comparer = new AlphabeticComparer() { Descending = true };
-            // Sort(strings, new StringComparer(comparer.Compare));
-            Sort(strings, comparer.Compare);
+            var lengthComparer = new StringComparer(CompareStringLength);
+            SortString(strings, lengthComparer);
+
+            var obj = new Comparer { Descending = true };
+            var simpleComparer = new StringComparer(obj.Compare);
+            SortString(strings, simpleComparer);
+
         }
     }
 }
