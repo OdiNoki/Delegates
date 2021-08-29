@@ -38,10 +38,24 @@ namespace Delegates
         //    }
         //}
 
+        public class AlphabeticComparer
+        {
+            public bool Descending { get; set; }
+
+            public int Compare(string x, string y)
+            {
+                return x.CompareTo(y) * (Descending ? -1 : 1);
+            }
+        }
+
         static void Main(string[] args)
         {
             var strings = new[] { "A", "B", "AA", "C", "BB", "FFF" };
             Sort(strings, new StringComparer(CompareLength));
+
+            var comparer = new AlphabeticComparer() { Descending = true };
+            // Sort(strings, new StringComparer(comparer.Compare));
+            Sort(strings, comparer.Compare);
         }
     }
 }
