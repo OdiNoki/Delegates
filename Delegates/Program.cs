@@ -51,11 +51,9 @@ namespace Delegates
         {
             var strings = new[] { "A", "B", "AA", "C", "BB", "FFF" };
 
-            Sort(strings, CompareStringLength);
-
-            var comparer = new Comparer { Descending = true };
-            Sort(strings, comparer.Compare);
-
+            Sort(strings, delegate(string x, string y) {
+                       return x.Length.CompareTo(y.Length);
+             });
         }
     }
 }
