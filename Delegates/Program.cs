@@ -6,9 +6,9 @@ namespace Delegates
 {
     class Program
     {
-        public delegate int StringComparer(string x, string y);
+        public delegate int ObjectComparer<T>(T x, T y);
 
-        public static void SortString(string[] array, StringComparer comparer)
+        public static void Sort<T>(T[] array, ObjectComparer<T> comparer)
         {
             for (int i = array.Length - 1; i > 0; i--)
                 for (int j = 1; j <= i; j++)
@@ -52,12 +52,10 @@ namespace Delegates
         {
             var strings = new[] { "A", "B", "AA", "C", "BB", "FFF" };
 
-            var lengthComparer = new StringComparer(CompareStringLength);
-            SortString(strings, lengthComparer);
+            Sort(strings, CompareStringLength);
 
-            var obj = new Comparer { Descending = true };
-            var simpleComparer = new StringComparer(obj.Compare);
-            SortString(strings, simpleComparer);
+            var comparer = new Comparer { Descending = true };
+            Sort(strings, comparer.Compare);
 
         }
     }
