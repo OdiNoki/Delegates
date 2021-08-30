@@ -6,9 +6,8 @@ namespace Delegates
 {
     class Program
     {
-        public delegate int ObjectComparer<T>(T x, T y);
 
-        public static void Sort<T>(T[] array, ObjectComparer<T> comparer)
+        public static void Sort<T>(T[] array, Func<T, T, int> comparer)
         {
             for (int i = array.Length - 1; i > 0; i--)
                 for (int j = 1; j <= i; j++)
