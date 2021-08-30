@@ -51,9 +51,7 @@ namespace Delegates
         {
             var strings = new[] { "A", "B", "AA", "C", "BB", "FFF" };
 
-            Sort(strings, delegate(string x, string y) {
-                       return x.Length.CompareTo(y.Length);
-             });
+            Sort(strings, (x, y) => x.Length.CompareTo(y.Length));
         }
     }
 }
