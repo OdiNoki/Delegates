@@ -6,52 +6,30 @@ namespace Delegates
 {
     class Program
     {
-
-        public static void Sort<T>(T[] array, Func<T, T, int> comparer)
-        {
-            for (int i = array.Length - 1; i > 0; i--)
-                for (int j = 1; j <= i; j++)
-                {
-                    var element1 = array[j-1];
-                    var element2 = array[j];
-                    if (comparer(element1, element2) > 0)
-                    {
-                        var temp = array[j];
-                        array[j] = array[j-1];
-                        array[j-1] = temp;
-                    }    
-                }    
-        }
-
-        public static int CompareStringLength(string x, string y)
-        {
-            return x.Length.CompareTo(y.Length);
-        }
-
-        //class StringComparer : IComparer<string>
-        //{
-        //    public bool Descending { get; set; }
-        //    public int Compare(string x, string y)
-        //    {
-        //        return x.CompareTo(y) * (Descending ? -1: 1) ;
-        //    }
-        //}
-
-        public class Comparer
-        {
-            public bool Descending { get; set; }
-
-            public int Compare(string x, string y)
-            {
-                return x.CompareTo(y) * (Descending ? -1 : 1);
-            }
-        }
+        static Random rnd = new Random();
 
         static void Main(string[] args)
         {
-            var strings = new[] { "A", "B", "AA", "C", "BB", "FFF" };
+            Func<int, int> f = x => x + 1;
 
-            Sort(strings, (x, y) => x.Length.CompareTo(y.Length));
+            Console.WriteLine(f(1));
+
+            Func<int> generator = () => rnd.Next();
+
+            Console.WriteLine(generator);
+
+            Func<double, double, double> h = (a, b) =>
+                {
+                    b = a % b;
+                    return b % a;
+                };
+
+            Action<int> print = x => Console.WriteLine(x);
+
+            print(generator());
+
+            Action printRandomNumber = () => Console.WriteLine(rnd.Next());
+            Action printRandomNumber1 = () => print(generator());
         }
     }
 }
